@@ -59,7 +59,7 @@ namespace prueba_tecnica.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            await _usuario.DeleteUsuario(new Usuario { Id = id });
+            await _usuario.DeleteUsuario(new Usuario { Identificador = id });
 
             return NoContent();
         }

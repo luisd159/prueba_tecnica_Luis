@@ -59,7 +59,7 @@ namespace prueba_tecnica.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeletePersona(int id)
         {
-            await _persona.DeletePersona(new Personas { Id = id });
+            await _persona.DeletePersona(new Personas { Identificador = id });
 
             return NoContent();
         }

@@ -2,6 +2,7 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using prueba_tecnica.Models;
+using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
 namespace prueba_tecnica.Interfaces
@@ -26,7 +27,7 @@ namespace prueba_tecnica.Interfaces
 
             var sql = @"DELETE FROM personas WHERE identificador = @Id";
 
-            var result = await db.ExecuteAsync(sql, new { Id = personas.Id });
+            var result = await db.ExecuteAsync(sql, new { Id = personas.Identificador });
 
             return result > 0;
 
@@ -55,20 +56,16 @@ namespace prueba_tecnica.Interfaces
         {
             var db = dbConnection();
 
-            var sql = @"CALL insertpersonas( @Id, @Nombre, @Apellido, @Numero, @Email, @Tipo, @Fecha)";
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", personas.Identificador);
+            parameters.Add("@nombre", personas.Nombre);
+            parameters.Add("@apellido", personas.Apellido);
+            parameters.Add("@numero", personas.Numero_Identificacion);
+            parameters.Add("@email", personas.Email);
+            parameters.Add("@tipo", personas.Tipo_Identificacion);
+            parameters.Add("@fecha", personas.Fecha_Creacion);
 
-            var parameters = new
-            {
-                Id = personas.Id,
-                Nombre = personas.Nombre,
-                Apellido = personas.Apellido,
-                Numero = personas.Numero_Identificacion,
-                Email = personas.Email,
-                Tipo = personas.Tipo_Identificacion,
-                Fecha = personas.Fecha_Creacion
-            };
-
-            var result = await db.ExecuteAsync(sql, parameters);
+            var result = await db.ExecuteAsync("insertpersonas", parameters, commandType: CommandType.StoredProcedure);
 
             return result > 0;
 
@@ -78,20 +75,16 @@ namespace prueba_tecnica.Interfaces
         {
             var db = dbConnection();
 
-            var sql = @" UPDATE personas ( nombre = @Nombre, 
-                                           apellido = @Apellido, 
-                                           numero_identificacion = @Numero_identificacion, 
-                                           email = @Email, 
-                                           tipo_identificacion = @Tipo_identificacion, 
-                                           fecha_creacion = @Fecha_creacion) WHERE identificador = @Id";
-    
-            var result = await db.ExecuteAsync(sql, new {   personas.Nombre, 
-                                                            personas.Apellido, 
-                                                            personas.Numero_Identificacion, 
-                                                            personas.Email, 
-                                                            personas.Tipo_Identificacion, 
-                                                            personas.Fecha_Creacion,
-                                                            personas.Id});
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", personas.Identificador);
+            parameters.Add("@nombre", personas.Nombre);
+            parameters.Add("@apellido", personas.Apellido);
+            parameters.Add("@numero", personas.Numero_Identificacion);
+            parameters.Add("@email", personas.Email);
+            parameters.Add("@tipo", personas.Tipo_Identificacion);
+            parameters.Add("@fecha", personas.Fecha_Creacion);
+
+            var result = await db.ExecuteAsync("updatepersonas", parameters, commandType: CommandType.StoredProcedure);
 
             return result > 0;
         }

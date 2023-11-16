@@ -54,3 +54,4 @@ C:\Users\Luis Avila\source\repos\prueba_tecnica\prueba_tecnica\obj\Debug\net8.0\
 C:\Users\Luis Avila\source\repos\prueba_tecnica\prueba_tecnica\obj\Debug\net8.0\prueba_tecnica.pdb
 C:\Users\Luis Avila\source\repos\prueba_tecnica\prueba_tecnica\obj\Debug\net8.0\prueba_tecnica.genruntimeconfig.cache
 C:\Users\Luis Avila\source\repos\prueba_tecnica\prueba_tecnica\obj\Debug\net8.0\ref\prueba_tecnica.dll
+C:\Users\Luis Avila\source\repos\prueba_tecnica\prueba_tecnica\obj\Debug\net8.0\prueba_tecnica.sourcelink.json
